@@ -1,5 +1,4 @@
-💳 Credit Default Risk Analysis —
- End-to-End Azure Data Engineering & BI Project
+💳 Credit Default Risk Analysis — End-to-End Azure Data Engineering & BI Project
 
 📘 Overview
 This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Tableau for business intelligence.  
@@ -12,27 +11,16 @@ The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www
 - Implement a scalable Azure architecture for future ML-based credit risk prediction.
 
 🧩 Tech Stack
-Data Pipeline Architecture Layers
-Layer
-Tools & Services
-Data Ingestion
-Azure Data Factory (ADF)
-Storage
-Azure Data Lake Storage Gen2 (ADLS)
-Processing
-Azure Databricks (PySpark, SQL)
-Transformation Layers
-Bronze → Silver → Gold
-Visualization
-Tableau Desktop / Tableau Public
-Orchestration
-ADF Pipelines + Databricks Jobs
-Languages
-SQL, Python (PySpark), Markdown
-Version Control
-Git & GitHub
-
-
+| Layer | Tools & Services |
+|-------|------------------|
+| **Data Ingestion** | Azure Data Factory (ADF) |
+| **Storage** | Azure Data Lake Storage Gen2 (ADLS) |
+| **Processing** | Azure Databricks (PySpark, SQL) |
+| **Transformation Layers** | Bronze → Silver → Gold |
+| **Visualization** | Tableau Desktop / Tableau Public |
+| **Orchestration** | ADF Pipelines + Databricks Jobs |
+| **Languages** | SQL, Python (PySpark), Markdown |
+| **Version Control** | Git & GitHub |
 
 🏗️ Data Pipeline Architecture
 [Architecture Diagram](architecture_pipeline_diagram.png)
@@ -76,25 +64,13 @@ Clean nulls, rename columns, convert datatypes
 Create KPI-level aggregated tables for Tableau
 
 4️⃣ Business KPIs (Gold Layer Metrics)
-KPI
-Description
-Formula
-Default Rate (%)
-% of customers defaulting
-(Total Defaults / Total Customers)  100
-Utilization Ratio
-Average balance used vs credit limit
-Avg Bill / Limit Balance
-Payment Behavior
-% paid vs billed
-Avg Payment / Avg Bill
-Demographic Risk
-Default rate by gender, age, education
-Grouped Aggregations
-Credit Exposure
-Avg credit limit by customer segment
-AVG(Limit Balance)
-
+| **KPI** | **Description** | **Formula** |
+|----------|----------------|--------------|
+| Default Rate (%) | % of customers defaulting | (Total Defaults / Total Customers) * 100 |
+| Utilization Ratio | Average balance used vs credit limit | Avg Bill / Limit Balance |
+| Payment Behavior | % paid vs billed | Avg Payment / Avg Bill |
+| Demographic Risk | Default rate by gender, age, education | Grouped Aggregations |
+| Credit Exposure | Avg credit limit by customer segment | AVG(Limit Balance) |
 
 Gold Views Created
 gold_default_overall
@@ -111,25 +87,13 @@ Authentication: Personal Access Token
 Database: credit_risk
 
 Tableau Dashboard Pages Overview
-Page
-Focus
-Visuals
-Executive Overview
-Overall defaults, customer KPIs
-KPI Cards, Trend Lines
-Demographics
-Age, gender, education risk
-Heatmaps, Bars
-Utilization Insights
-Credit usage & defaults
-Scatterplots, Histograms
-Payment Behavior
-Repayment ratio analysis
-Donut, Bar Charts
-Risk Segmentation
-Predictive/score-based
-Risk Bucket bars, Tables
-
+| **Page** | **Focus** | **Visuals** |
+|-----------|------------|-------------|
+| Executive Overview | Overall defaults, customer KPIs | KPI Cards, Trend Lines |
+| Demographics | Age, gender, education risk | Heatmaps, Bars |
+| Utilization Insights | Credit usage & defaults | Scatterplots, Histograms |
+| Payment Behavior | Repayment ratio analysis | Donut, Bar Charts |
+| Risk Segmentation | Predictive/score-based | Risk Bucket Bars, Tables |
 
 Sample KPI SQL
 SELECT education, COUNT() AS customers,
@@ -156,41 +120,13 @@ Heatmap: Default by Age & Education
 Scatter: Utilization vs Payment Ratio
 
 📅 Pipeline Orchestration Flow
-Step
-Component
-Description
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+| Step | Component | Description |
+| ---- | ------------------- | ------------------------ | 
+| 1 | ADF | Ingest raw CSV → ADLS | 
+| 2 | Databricks (Bronze) | Basic cleaning, schema | 
+| 3 | Databricks (Silver) | Feature engineering | 
+| 4 | Databricks (Gold) | KPI aggregations | 
+| 5 | Tableau | Visualization & BI layer |
 
 ⚙️ Future Enhancements
 Add ML model (logistic regression / XGBoost) to predict default risk.
@@ -225,5 +161,4 @@ UCI Credit Card Dataset on Kaggle
 Azure Databricks Documentation
 Azure Data Factory Documentation
 Tableau Documentation
-
 
