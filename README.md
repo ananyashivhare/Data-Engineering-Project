@@ -1,16 +1,16 @@
-💳 Credit Default Risk Analysis — End-to-End Azure Data Engineering & BI Project
+# Credit Default Risk Analysis — End-to-End Azure Data Engineering & BI Project
 
-📘 Overview
+## Overview
 This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Tableau for business intelligence.  
 The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset), which contains demographic and financial data of Taiwanese credit card clients. The goal is to analyze and visualize customer default patterns to support risk management and strategic decision-making.
 
-🎯 Project Objectives
+## Project Objectives
 - Design an end-to-end data pipeline for ingesting, transforming, and analyzing financial risk data.  
 - Build KPI metrics that track customer default trends, utilization behavior, and demographic insights.  
 - Develop Tableau dashboards for business stakeholders to monitor financial performance and risks.  
 - Implement a scalable Azure architecture for future ML-based credit risk prediction.
 
-🧩 Tech Stack
+ ## Tech Stack
 | Layer | Tools & Services |
 |-------|------------------|
 | **Data Ingestion** | Azure Data Factory (ADF) |
@@ -22,7 +22,7 @@ The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www
 | **Languages** | SQL, Python (PySpark), Markdown |
 | **Version Control** | Git & GitHub |
 
-🏗️ Data Pipeline Architecture
+## Data Pipeline Architecture
 [Architecture Diagram](architecture_pipeline_diagram.png)
 Flow Summary:
 1. Azure Data Factory (ADF) ingests the raw Kaggle CSV from local or web storage to the ADLS “raw” container.
@@ -32,7 +32,7 @@ Flow Summary:
 5. Tableau Dashboard connects to Databricks SQL Warehouse to visualize risk KPIs in real time.
 —--------------------------------------------------------------------------------------------
 
-🔁 Step-by-Step Project Workflow
+## Step-by-Step Project Workflow
 1️⃣ Dataset & Storage Setup
 - Download dataset: [Kaggle — Default of Credit Card Clients](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset)
 - Upload the CSV (`default_of_credit_card_clients.csv`) into Azure Data Lake Storage Gen2 → `raw` container  
@@ -113,13 +113,13 @@ Auto-termination: 120 mins
 Runtime: Databricks Runtime 14.x (includes Delta Engine)
 Libraries: pandas, pyspark, delta, matplotlib
 
-🧮 KPI Dashboard Mockup (Tableau Layout)
+## KPI Dashboard Mockup (Tableau Layout)
 Executive KPIs: Default Rate | Total Customers | Avg Limit 
 Trend: Monthly Default %
 Heatmap: Default by Age & Education
 Scatter: Utilization vs Payment Ratio
 
-📅 Pipeline Orchestration Flow
+## Pipeline Orchestration Flow
 | Step | Component | Description |
 | ---- | ------------------- | ------------------------ | 
 | 1 | ADF | Ingest raw CSV → ADLS | 
@@ -128,20 +128,20 @@ Scatter: Utilization vs Payment Ratio
 | 4 | Databricks (Gold) | KPI aggregations | 
 | 5 | Tableau | Visualization & BI layer |
 
-⚙️ Future Enhancements
+## Future Enhancements
 Add ML model (logistic regression / XGBoost) to predict default risk.
 Automate Tableau extract refresh post Databricks job completion.
 Integrate with Azure Synapse Analytics for enterprise-scale analytics.
 Build CI/CD pipeline for data jobs using Azure DevOps or GitHub Actions.
 
-🧠 Key Learnings and aspects
+## Key Learnings and aspects
 Building modular ETL pipelines with ADF + Databricks.
 Implementing Bronze–Silver–Gold data architecture.
 Designing business-ready KPIs from raw data.
 Developing interactive BI dashboards in Tableau.
 Applying financial domain analytics for risk monitoring.
 
-📎 Repository Structure
+## Repository Structure
 ├── architecture_pipeline_diagram.png
 ├── ingest_credit_default_pipeline.json
 ├── adf_arm_template_ingest_pipeline.json
@@ -156,7 +156,7 @@ Applying financial domain analytics for risk monitoring.
 └── README.md
 
 
-🧾 References
+## References
 UCI Credit Card Dataset on Kaggle
 Azure Databricks Documentation
 Azure Data Factory Documentation
