@@ -37,6 +37,7 @@ Flow Summary:
 - Download dataset: [Kaggle — Default of Credit Card Clients](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset)
 - Upload the CSV (`default_of_credit_card_clients.csv`) into Azure Data Lake Storage Gen2 → `raw` container  
 abfss://raw@.dfs.core.windows.net/default_of_credit_card_clients.csv
+
 2️⃣ Data Ingestion — Azure Data Factory (ADF)
 📄 Importable ADF Pipeline JSON  
 [Download ingest_credit_default_pipeline.json](./ingest_credit_default_pipeline.json)
