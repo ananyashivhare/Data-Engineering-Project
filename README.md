@@ -1,13 +1,13 @@
 # Credit Default Risk Analysis — End-to-End Azure Data Engineering & BI Project
 
 ## Overview
-This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Tableau for business intelligence.  
+This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Databricks Dashboard for business intelligence.  
 The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset), which contains demographic and financial data of Taiwanese credit card clients. The goal is to analyze and visualize customer default patterns to support risk management and strategic decision-making.
 
 ## Project Objectives
 - Design an end-to-end data pipeline for ingesting, transforming, and analyzing financial risk data.  
 - Build KPI metrics that track customer default trends, utilization behavior, and demographic insights.  
-- Develop Tableau dashboards for business stakeholders to monitor financial performance and risks.  
+- Develop Databricks Dashboard dashboards for business stakeholders to monitor financial performance and risks.  
 - Implement a scalable Azure architecture for future ML-based credit risk prediction.
 
  ## Tech Stack
@@ -17,7 +17,7 @@ The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www
 | **Storage** | Azure Data Lake Storage Gen2 (ADLS) |
 | **Processing** | Azure Databricks (PySpark, SQL) |
 | **Transformation Layers** | Bronze → Silver → Gold |
-| **Visualization** | Tableau Desktop / Tableau Public |
+| **Visualization** | Databricks Dashboard Desktop / Databricks Dashboard Public |
 | **Orchestration** | ADF Pipelines + Databricks Jobs |
 | **Languages** | SQL, Python (PySpark), Markdown |
 | **Version Control** | Git & GitHub |
@@ -29,7 +29,7 @@ Flow Summary:
 2. Databricks Bronze layer cleans and standardizes schema and column names.
 3. Silver layer performs data type casting, null handling, and feature derivation (e.g., average bills/payments).
 4. Gold layer aggregates KPIs by demographic, age, and payment behavior for BI consumption.
-5. Tableau Dashboard connects to Databricks SQL Warehouse to visualize risk KPIs in real time.
+5. databricks dashboard connects to Databricks SQL Warehouse to visualize risk KPIs in real time.
 —--------------------------------------------------------------------------------------------
 
 ## Step-by-Step Project Workflow
@@ -59,7 +59,7 @@ ARM Template (Full Deployment)
 3️⃣ Transformation — Azure Databricks
 #### 🔶 Bronze Layer - Load raw CSV → Apply schema → Write to `bronze_credit_default`
 #### 🔷 Silver Layer - Clean nulls, rename columns, convert datatypes
-#### 🟡 Gold Layer - Create KPI-level aggregated tables for Tableau
+#### 🟡 Gold Layer - Create KPI-level aggregated tables for Databricks Dashboard
 
 4️⃣ Business KPIs (Gold Layer Metrics)
 
@@ -237,7 +237,7 @@ Purpose: So that I can easily full columns in databricks dashboard, instead of a
 
 ---
 
-5️⃣ Visualization — Tableau Dashboard
+5️⃣ Visualization — databricks dashboard
 
 ### Dashboard Pages
 https://adb-75542058864924.4.azuredatabricks.net/dashboardsv3/01f0b92a3ab71ea286ac05a4d458d167/published?o=75542058864924
@@ -330,7 +330,7 @@ Auto-termination: 120 mins
 Runtime: Databricks Runtime 14.x (includes Delta Engine)
 Libraries: pandas, pyspark, delta, matplotlib
 
-## KPI Dashboard Mockup (Tableau Layout)
+## KPI Dashboard Mockup (Databricks Dashboard Layout)
 Executive KPIs: Default Rate | Total Customers | Avg Limit 
 Trend: Monthly Default %
 Heatmap: Default by Age & Education
@@ -343,11 +343,11 @@ Scatter: Utilization vs Payment Ratio
 | 2 | Databricks (Bronze) | Basic cleaning, schema | 
 | 3 | Databricks (Silver) | Feature engineering | 
 | 4 | Databricks (Gold) | KPI aggregations | 
-| 5 | Tableau | Visualization & BI layer |
+| 5 | Databricks Dashboard | Visualization & BI layer |
 
 ## Future Enhancements
 Add ML model (logistic regression / XGBoost) to predict default risk.
-Automate Tableau extract refresh post Databricks job completion.
+Automate Databricks Dashboard extract refresh post Databricks job completion.
 Integrate with Azure Synapse Analytics for enterprise-scale analytics.
 Build CI/CD pipeline for data jobs using Azure DevOps or GitHub Actions.
 
@@ -355,11 +355,10 @@ Build CI/CD pipeline for data jobs using Azure DevOps or GitHub Actions.
 Building modular ETL pipelines with ADF + Databricks.
 Implementing Bronze–Silver–Gold data architecture.
 Designing business-ready KPIs from raw data.
-Developing interactive BI dashboards in Tableau.
+Developing interactive BI dashboards in Databricks Dashboard.
 Applying financial domain analytics for risk monitoring.
 
 ## Repository Structure
-├── architecture_pipeline_diagram.png
 ├── ingest_credit_default_pipeline.json
 ├── adf_arm_template_ingest_pipeline.json
 ├── databricks_jobs_and_cluster_recommendations.md
@@ -367,9 +366,8 @@ Applying financial domain analytics for risk monitoring.
 │   ├── bronze_ingest.ipynb
 │   ├── silver_cleaning.ipynb
 │   ├── gold_kpis.ipynb
-├── tableau/
-│   ├── Credit_Risk_Dashboard.twbx
-│   ├── dashboard_screenshots/
+├── databricks dashboard/
+│   ├── Credit_Risk_Dashboard
 └── README.md
 
 
@@ -377,4 +375,4 @@ Applying financial domain analytics for risk monitoring.
 UCI Credit Card Dataset on Kaggle
 Azure Databricks Documentation
 Azure Data Factory Documentation
-Tableau Documentation
+Databricks Dashboard Documentation
