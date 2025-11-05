@@ -1,4 +1,4 @@
-# Credit Default Risk Analysis — End-to-End Azure Data Engineering & BI Project
+# Credit Default Risk Analysis — End-to-End Azure Data Engineering Project
 
 ## Overview
 This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Databricks Dashboard for business intelligence.  
