@@ -220,40 +220,6 @@ ORDER BY count DESC;
 
 ---
 
-### Tableau Dashboard Connection
-
-**Connection Details:**
-- **Server:** `<your-databricks-workspace>.azuredatabricks.net`
-- **HTTP Path:** `/sql/1.0/warehouses/<warehouse-id>`
-- **Authentication:** Personal Access Token
-- **Database:** `credit_risk`
-
-**Available Tables for Visualization:**
-1. `gold_customer_agg` - Individual customer metrics
-2. `gold_risk_segments` - Segment-level risk analysis
-3. `gold_education_agg` - Education demographics
-4. `gold_age_group_agg` - Age group insights
-5. `gold_gender_agg` - Gender breakdown
-6. `gold_scorecard` - Utilization × Payment matrix
-
-**Sample Tableau Calculated Fields:**
-
-```
-// Default Rate (%)
-SUM([defaults]) / SUM([customers]) * 100
-
-// Utilization Rate
-AVG([utilization_ratio])
-
-// High Risk Flag
-IF [default_rate_pct] > 30 THEN "High Risk"
-ELSEIF [default_rate_pct] > 15 THEN "Medium Risk"
-ELSE "Low Risk"
-END
-```
-
----
-
 ### Key Insights from Gold Layer
 
 Based on the aggregated data:
@@ -266,41 +232,64 @@ Based on the aggregated data:
 
 ---
 
+### Created a unified table by joining all tables in gold layer
+Purpose: So that I can easily full columns in databricks dashboard, instead of adding complex sql querry for each field requirement.
+
+---
+
 5️⃣ Visualization — Tableau Dashboard
 
 ### Dashboard Pages
-
-| Page | Focus | Visuals | Data Source |
-|------|-------|---------|-------------|
-| **Executive Overview** | Overall defaults, KPIs | KPI Cards, Trend Lines | `gold_customer_agg` |
-| **Risk Segments** | Spending vs Payment behavior | Heatmap, Bar Charts | `gold_risk_segments` |
-| **Demographics** | Age, gender, education risk | Stacked Bars, Heatmaps | `gold_education_agg`, `gold_age_group_agg`, `gold_gender_agg` |
-| **Utilization Analysis** | Credit usage patterns | Scatter Plot, Histogram | `gold_scorecard` |
-| **Customer Details** | Individual customer drill-down | Table, Detail Cards | `gold_customer_agg` |
-
+https://adb-75542058864924.4.azuredatabricks.net/dashboardsv3/01f0b92a3ab71ea286ac05a4d458d167/published?o=75542058864924
 ### Visuals
 
-**Executive KPIs:**
-- Default Rate % (Big Number)
-- Total Customers (Big Number)
-- Avg Credit Limit (Big Number)
-- Default Trend over Time (Line Chart)
+1️⃣ Fraud Risk Heatmap by Payment Behavior & Utilization
+Purpose: Identify combinations of payment status and credit utilization that correlate with higher default risk.
+Fields: latest_payment_status, credit_utilization, risk_segment_default_rate_pct
+Chart Type: Heatmap / Matrix
+Why: Shows risk concentration visually; high-risk combinations (late payment + high utilization) light up in red.
+Implementation Notes: Rows = latest_payment_status, Columns = credit_utilization, Color = risk_segment_default_rate_pct
 
-**Risk Heatmap:**
-- X-Axis: Credit Utilization (Low/Medium/High)
-- Y-Axis: Payment Status (On-Time/Late/Delinquent)
-- Color: Default Rate %
-- Source: `gold_scorecard`
+2️⃣ Multi-dimensional Sankey Diagram for Default Flow
+Purpose: Track how defaults flow across age group → education → spending segment → default_flag.
+Fields: age_group, EDUCATION, spending_segment, default_flag, customer_count
+Chart Type: Sankey / Flow Diagram
+Why: Shows the path of customers from demographic segments to defaults; highlights “leak points” in risk.
+Implementation Notes: Width of flow = customer_count
+Sample Look: Thick flows from 18–24 age → High School → Low Spender → Default, thin flows from 55+ → Graduate → High Spender → No Default.
 
-**Demographics:**
-- Bar Chart: Default Rate by Age Group (`gold_age_group_agg`)
-- Bar Chart: Default Rate by Education (`gold_education_agg`)
-- Pie Chart: Gender Distribution (`gold_gender_agg`)
+3️⃣ Donut Pie Chart (Default Rate Evolution)
+Purpose: Understand how customers are distributed across credit utilization levels to identify spending and risk behavior patterns.
+Fields: credit_utilization, avg_bill_6months
+Chart Type: Donut Pie Chart
+Why: Provides a quick visual snapshot of what percentage of customers fall into Low, Medium, and High utilization categories. Helps banks identify potential over-leveraged customers and segment for credit risk or marketing strategies.
+Implementation Notes: Slice = count of customers by utilization category, Use % labels to show proportion clearly
+Sample Look: Majority of customers (~60%) fall under Low Utilization; High Utilization forms a significant portion (~25%) indicating potential credit risk; Medium Utilization is the smallest segment (~15%).
 
-**Risk Segments:**
-- Stacked Bar: Spending Segment with Payment Status breakdown
-- Table: Top 10 High-Risk Segments
-- Source: `gold_risk_segments`
+4️⃣ Clustered Bubble Plot (Risk vs Exposure)
+Purpose: Identify clusters of high-risk customers by credit utilization and bill amount.
+Fields: avg_bill_6months, utilization_ratio, risk_segment_default_rate_pct, customer_count
+Chart Type: Bubble Plot
+Why: Bubble size = customer_count, Color = default_rate_pct; helps visually detect risky customer clusters.
+Implementation Notes: X-axis = avg_bill_6months, Y-axis = utilization_ratio, bubble size = customer_count, color = risk_segment_default_rate_pct.
+Sample Look: Top-right cluster (high bill + high utilization) is large red bubble—high risk.
+
+5️⃣ Line Chart for Default Rate Evolution
+Purpose: This visual helps understand how credit default behavior changes across different age groups.
+Fields: default_flag, age
+Chart Type: Line Chart
+Why: Shows around which age people are most likely to default on their credit.
+Implementation Notes: Each axis = one metric (default_flag, age)
+Sample Look: Orange Line (N)  sharply rising from early 20s, peaking in late 20s / early 30s, and declining steadily with age.Blue Line (Y) remains relatively stable with smaller fluctuations.It visually communicates that default likelihood decreases as age increases, which is a realistic pattern observed in real banking datasets.
+
+
+6️⃣ Bar Chart for Risk Segments Across Demographics
+Purpose: Compare default risk, credit utilization, and average bill for multiple demographics in one view.
+Fields: gender, age_group, spending_segment, risk_segment_default_rate_pct, avg_bill_6months, utilization_ratio
+Chart Type: Radar / Spider Chart
+Why: Shows multi-dimensional risk profile across segments; easy to spot extremes.
+Implementation Notes: Each axis = one metric (default_rate_pct, avg_bill, utilization_ratio), separate chart per demographic.
+Sample Look: Female, 18–24, Low Spender: radar spikes on utilization, moderate on default; Male, 55+, High Spender: radar balanced, low spikes.
 
 ---
 
