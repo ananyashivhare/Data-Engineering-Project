@@ -1,7 +1,9 @@
 # Credit Default Risk Analysis — End-to-End Azure Data Engineering Project
 
+## 🗺️ Project Architecture
+![Project Flowchart](My_project_workflow.png)
+
 ## Overview
-![Dashboard]()
 This project demonstrates a complete data engineering and analytics pipeline built on Microsoft Azure, leveraging Azure Data Factory, Azure Databricks, Azure Data Lake Storage (ADLS), and Databricks Dashboard for business intelligence.  
 The dataset used is the [UCI Default of Credit Card Clients Dataset](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset), which contains demographic and financial data of Taiwanese credit card clients. The goal is to analyze and visualize customer default patterns to support risk management and strategic decision-making.
 
